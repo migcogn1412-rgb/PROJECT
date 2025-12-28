@@ -113,9 +113,30 @@ void capNhatTopping(Topping& mon) {
 	if (boNhoDem != "") mon.giaGoc = stoi(boNhoDem);
 }
 
+//IN MENU TOPPING
+void inMenuTopping(string tieuDeMenu, Topping danhSach[], int& thuTu) {
+	cout << tieuDeMenu << endl;
+	veDuong(60);
+	cout << format("| {:<10} | {:<30} | {:<10} |", "MÃ", "TÊN ĐỒ UỐNG", "GIÁ") << endl;
+	veDuong(60);
+
+	for (int i = 0; i < thuTu; i++) {
+		cout << format("| {:<10} | {:<30} | {:<10} |", danhSach[i].ma, danhSach[i].ten, danhSach[i].giaGoc) << endl;
+	}
+
+	veDuong(60);
+	cout << endl;
+}
+
 //THÊM TOPPING
 void themTopping(string fileTopping) {
 	veTieuDe("THÊM TOPPING MỚI");
+
+	Topping danhSach[TOI_DA];
+	int thuTu = 0;
+	if (docFileTuNguonTopping(fileTopping, danhSach, thuTu)) {
+		inMenuTopping("* MENU TOPPING HIỆN TẠI", danhSach, thuTu);
+	}
 
 	ofstream themTopping(fileTopping, ios::app);
 	if (!themTopping.is_open()) {
@@ -159,7 +180,9 @@ void xoaTopping(string fileTopping) {
 
 	Topping danhSach[TOI_DA];
 	int thuTu = 0;
-	if (!docFileTuNguonTopping(fileTopping, danhSach, thuTu)) return;
+	if (docFileTuNguonTopping(fileTopping, danhSach, thuTu)) {
+		inMenuTopping("* MENU TOPPING HIỆN TẠI", danhSach, thuTu);
+	}
 
 	cout << "Nhập *MÃ* đồ topping muốn xóa: ";
 	string maXoa;
@@ -201,7 +224,9 @@ void suaTopping(string fileTopping) {
 
 	Topping danhSach[TOI_DA];
 	int thuTu = 0;
-	if (!docFileTuNguonTopping(fileTopping, danhSach, thuTu)) return;
+	if (docFileTuNguonTopping(fileTopping, danhSach, thuTu)) {
+		inMenuTopping("* MENU TOPPING HIỆN TẠI", danhSach, thuTu);
+	}
 
 	cout << "Nhập *MÃ* topping muốn sửa: ";
 	string maSua;
