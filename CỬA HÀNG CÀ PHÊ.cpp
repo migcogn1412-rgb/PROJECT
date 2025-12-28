@@ -149,8 +149,7 @@ void capNhatDoUong(DoUong& mon) {
 }
 
 //IN MENU ĐỒ UỐNG
-void inMenuDoUong(string tieuDeMenu, DoUong danhSach[], int& thuTu) {
-	cout << tieuDeMenu << endl;
+void inMenuDoUong(DoUong danhSach[], int& thuTu) {
 	veDuong(73);
 	cout << format("| {:<10} | {:<30} | {:<10} | {:<10} |", "MÃ", "TÊN ĐỒ UỐNG", "GIÁ", "LOẠI") << endl;
 	veDuong(73);
@@ -184,7 +183,8 @@ void themDoUong(string fileDoUong) {
 	DoUong danhSach[TOI_DA];
 	int thuTu = 0;
 	if (docFileTuNguonDoUong(fileDoUong, danhSach, thuTu)) {
-		inMenuDoUong("* MENU ĐỒ UỐNG HIỆN TẠI *", danhSach, thuTu);
+		cout << "* MENU ĐỒ UỐNG HIỆN TẠI *" << endl;
+		inMenuDoUong(danhSach, thuTu);
 	}
 
 	ofstream themDoUong(fileDoUong, ios::app);
@@ -211,7 +211,8 @@ void xoaDoUong(string fileDoUong) {
 	DoUong danhSach[TOI_DA];
 	int thuTu = 0;
 	if (docFileTuNguonDoUong(fileDoUong, danhSach, thuTu)) {
-		inMenuDoUong("* MENU ĐỒ UỐNG HIỆN TẠI *", danhSach, thuTu);
+		cout << "* MENU ĐỒ UỐNG HIỆN TẠI *" << endl;
+		inMenuDoUong(danhSach, thuTu);
 	}
 
 	cout << "Nhập *MÃ* đồ uống muốn xóa: ";
@@ -248,7 +249,8 @@ void suaDoUong(string fileDoUong) {
 	DoUong danhSach[TOI_DA];
 	int thuTu = 0;
 	if (docFileTuNguonDoUong(fileDoUong, danhSach, thuTu)) {
-		inMenuDoUong("* MENU ĐỒ UỐNG HIỆN TẠI *", danhSach, thuTu);
+		cout << "* MENU ĐỒ UỐNG HIỆN TẠI *" << endl;
+		inMenuDoUong(danhSach, thuTu);
 	}
 
 	cout << "Nhập *MÃ* đồ uống muốn sửa: ";
@@ -417,8 +419,7 @@ void capNhatDoAn(DoAn& mon) {
 }
 
 //IN MENU ĐỒ ĂN
-void inMenuDoAn(string tieuDeMenu, DoAn danhSach[], int& thuTu) {
-	cout << tieuDeMenu << endl;
+void inMenuDoAn(DoAn danhSach[], int& thuTu) {
 	veDuong(73);
 	cout << format("| {:<10} | {:<30} | {:<10} | {:<10} |", "MÃ", "TÊN ĐỒ ĂN", "GIÁ", "LOẠI") << endl;
 	veDuong(73);
@@ -452,7 +453,8 @@ void themDoAn(string fileDoAn) {
 	DoAn danhSach[TOI_DA];
 	int thuTu = 0;
 	if (docFileTuNguonDoAn(fileDoAn, danhSach, thuTu)) {
-		inMenuDoAn("* MENU ĐỒ ĂN HIỆN TẠI *", danhSach, thuTu);
+		cout << "* MENU ĐỒ ĂN HIỆN TẠI *" << endl;
+		inMenuDoAn(danhSach, thuTu);
 	}
 
 	ofstream themDoAn(fileDoAn, ios::app);
@@ -479,7 +481,8 @@ void xoaDoAn(string fileDoAn) {
 	DoAn danhSach[TOI_DA];
 	int thuTu = 0;
 	if (docFileTuNguonDoAn(fileDoAn, danhSach, thuTu)) {
-		inMenuDoAn("* MENU ĐỒ ĂN HIỆN TẠI *", danhSach, thuTu);
+		cout << "* MENU ĐỒ ĂN HIỆN TẠI *" << endl;
+		inMenuDoAn(danhSach, thuTu);
 	}
 
 	cout << "Nhập *MÃ* đồ ăn muốn xóa: ";
@@ -516,7 +519,8 @@ void suaDoAn(string fileDoAn) {
 	DoAn danhSach[TOI_DA];
 	int thuTu = 0;
 	if (docFileTuNguonDoAn(fileDoAn, danhSach, thuTu)) {
-		inMenuDoAn("* MENU ĐỒ ĂN HIỆN TẠI *", danhSach, thuTu);
+		cout << "* MENU ĐỒ ĂN HIỆN TẠI *" << endl;
+		inMenuDoAn(danhSach, thuTu);
 	}
 
 	cout << "Nhập *MÃ* đồ ăn muốn sửa: ";
@@ -679,8 +683,7 @@ void capNhatTopping(Topping& mon) {
 }
 
 //IN MENU TOPPING
-void inMenuTopping(string tieuDeMenu, Topping danhSach[], int& thuTu) {
-	cout << tieuDeMenu << endl;
+void inMenuTopping(Topping danhSach[], int& thuTu) {
 	veDuong(60);
 	cout << format("| {:<10} | {:<30} | {:<10} |", "MÃ", "TÊN ĐỒ UỐNG", "GIÁ") << endl;
 	veDuong(60);
@@ -711,7 +714,8 @@ void themTopping(string fileTopping) {
 	Topping danhSach[TOI_DA];
 	int thuTu = 0;
 	if (docFileTuNguonTopping(fileTopping, danhSach, thuTu)) {
-		inMenuTopping("* MENU TOPPING HIỆN TẠI *", danhSach, thuTu);
+		cout << "* MENU TOPPING HIỆN TẠI *" << endl;
+		inMenuTopping(danhSach, thuTu);
 	}
 
 	ofstream themTopping(fileTopping, ios::app);
@@ -738,7 +742,8 @@ void xoaTopping(string fileTopping) {
 	Topping danhSach[TOI_DA];
 	int thuTu = 0;
 	if (docFileTuNguonTopping(fileTopping, danhSach, thuTu)) {
-		inMenuTopping("* MENU TOPPING HIỆN TẠI *", danhSach, thuTu);
+		cout << "* MENU TOPPING HIỆN TẠI *" << endl;
+		inMenuTopping(danhSach, thuTu);
 	}
 
 	cout << "Nhập *MÃ* đồ topping muốn xóa: ";
@@ -775,7 +780,8 @@ void suaTopping(string fileTopping) {
 	Topping danhSach[TOI_DA];
 	int thuTu = 0;
 	if (docFileTuNguonTopping(fileTopping, danhSach, thuTu)) {
-		inMenuTopping("* MENU TOPPING HIỆN TẠI *", danhSach, thuTu);
+		cout << "* MENU TOPPING HIỆN TẠI *" << endl;
+		inMenuTopping(danhSach, thuTu);
 	}
 
 	cout << "Nhập *MÃ* topping muốn sửa: ";
@@ -933,8 +939,7 @@ void capNhatCauHinh(CauHinh& mon) {
 }
 
 //IN CẤU HÌNH
-void inCauHinh(string tieuDeCauHinh, CauHinh danhSach[], int& thuTu) {
-	cout << tieuDeCauHinh << endl;
+void inCauHinh(CauHinh danhSach[], int& thuTu) {
 	veDuong(37);
 	cout << format("| {:<15} | {:<15} |", "SIZE", "GIÁ CỘNG THÊM") << endl;
 	veDuong(37);
@@ -962,7 +967,8 @@ void themSize(string fileCauHinh) {
 	CauHinh danhSach[TOI_DA];
 	int thuTu = 0;
 	if (docFileTuNguonCauHinh(fileCauHinh, danhSach, thuTu)) {
-		inCauHinh("* CẤU HÌNH HIỆN TẠI *", danhSach, thuTu);
+		cout << "* CẤU HÌNH HIỆN TẠI *" << endl;
+		inCauHinh(danhSach, thuTu);
 	}
 
 	ofstream themSize(fileCauHinh, ios::app);
@@ -989,7 +995,8 @@ void xoaSize(string fileCauHinh) {
 	CauHinh danhSach[TOI_DA];
 	int thuTu = 0;
 	if (docFileTuNguonCauHinh(fileCauHinh, danhSach, thuTu)) {
-		inCauHinh("* CẤU HÌNH HIỆN TẠI *", danhSach, thuTu);
+		cout << "* CẤU HÌNH HIỆN TẠI *" << endl;
+		inCauHinh(danhSach, thuTu);
 	}
 
 	cout << "Nhập size muốn xóa: ";
@@ -1026,7 +1033,8 @@ void suaCauHinh(string fileCauHinh) {
 	CauHinh danhSach[TOI_DA];
 	int thuTu = 0;
 	if (docFileTuNguonCauHinh(fileCauHinh, danhSach, thuTu)) {
-		inCauHinh("* CẤU HÌNH HIỆN TẠI *", danhSach, thuTu);
+		cout << "* CẤU HÌNH HIỆN TẠI *" << endl;
+		inCauHinh(danhSach, thuTu);
 	}
 
 	cout << "Nhập size muốn sửa: ";
@@ -1085,6 +1093,42 @@ void cauHinhOrder() {
 	}
 }
 
+void menuChiTiet() {
+	DoUong du[TOI_DA];
+	DoAn da[TOI_DA];
+	Topping t[TOI_DA];
+	CauHinh ch[TOI_DA];
+	int soLuongdu = 0, soLuongda = 0, soLuongt = 0, soLuongch = 0;
+
+	docFileTuNguonDoUong("DoUong.txt", du, soLuongdu);
+	docFileTuNguonDoAn("DoAn.txt", da, soLuongda);
+	docFileTuNguonTopping("Topping.txt", t, soLuongt);
+	docFileTuNguonCauHinh("CauHinhOrder.txt", ch, soLuongch);
+
+	veTieuDe("MENU TỔNG HỢP");
+	cout << "\n=== ĐỒ UỐNG ===\n";
+	if (soLuongdu == 0) cout << "Chưa có dữ liệu\n";
+	else {
+		inMenuDoUong(du, soLuongdu);
+	}
+	cout << "\n=== ĐỒ ĂN ===\n";
+	if (soLuongda == 0) cout << "Chưa có dữ liệu\n";
+	else {
+		inMenuDoAn(da, soLuongda);
+	}
+	cout << "\n=== TOPPING ===\n";
+	if (soLuongt == 0) cout << "Chưa có dữ liệu\n";
+	else {
+		inMenuTopping(t, soLuongt);
+	}
+	cout << "\n=== SIZE ===\n";
+	if (soLuongch == 0) cout << "Chưa có dữ liệu\n";
+	else {
+		inCauHinh(ch, soLuongch);
+	}
+	cout << endl;
+}
+
 // =========================================================
 // QUẢN LÍ DỮ LIỆU PHÁT SINH
 // =========================================================
@@ -1112,6 +1156,7 @@ void quanLiCoSoDuLieu() {
 		cout << format("{:<60}", "[2] Quản lí đồ ăn") << endl;
 		cout << format("{:<60}", "[3] Quản lí topping") << endl;
 		cout << format("{:<60}", "[4] Cấu hình order") << endl;
+		cout << format("{:<60}", "[5] Menu chi tiết") << endl;
 		cout << format("{:<60}", "[0] Quay lại màn hình chính") << endl;
 		veDuong(60);
 		cout << " [*] CHỌN: ";
@@ -1127,6 +1172,7 @@ void quanLiCoSoDuLieu() {
 		else if (luaChon == 2) quanLiDoAn();
 		else if (luaChon == 3) quanLiTopping();
 		else if (luaChon == 4) cauHinhOrder();
+		else if (luaChon == 5) menuChiTiet();
 		else cout << "\n--> Lựa chọn không hợp lệ!" << endl;
 
 		dungManHinh();
