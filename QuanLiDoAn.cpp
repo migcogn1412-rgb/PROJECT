@@ -119,9 +119,30 @@ void capNhatDoAn(DoAn& mon) {
 	if (boNhoDem != "") mon.loai = boNhoDem;
 }
 
+//IN MENU ĐỒ ĂN
+void inMenuDoAn(string tieuDeMenu, DoAn danhSach[], int& thuTu) {
+	cout << tieuDeMenu << endl;
+	veDuong(73);
+	cout << format("| {:<10} | {:<30} | {:<10} | {:<10} |", "MÃ", "TÊN ĐỒ ĂN", "GIÁ", "LOẠI") << endl;
+	veDuong(73);
+
+	for (int i = 0; i < thuTu; i++) {
+		cout << format("| {:<10} | {:<30} | {:<10} | {:<10} |", danhSach[i].ma, danhSach[i].ten, danhSach[i].giaGoc, danhSach[i].loai) << endl;
+	}
+
+	veDuong(73);
+	cout << endl;
+}
+
 //THÊM ĐỒ ĂN
 void themDoAn(string fileDoAn) {
 	veTieuDe("THÊM ĐỒ ĂN MỚI");
+
+	DoAn danhSach[TOI_DA];
+	int thuTu = 0;
+	if (docFileTuNguonDoAn(fileDoAn, danhSach, thuTu)) {
+		inMenuDoAn("* MENU ĐỒ ĂN HIỆN TẠI *", danhSach, thuTu);
+	}
 
 	ofstream themDoAn(fileDoAn, ios::app);
 	if (!themDoAn.is_open()) {
@@ -169,7 +190,9 @@ void xoaDoAn(string fileDoAn) {
 
 	DoAn danhSach[TOI_DA];
 	int thuTu = 0;
-	if (!docFileTuNguonDoAn(fileDoAn, danhSach, thuTu)) return;
+	if (docFileTuNguonDoAn(fileDoAn, danhSach, thuTu)) {
+		inMenuDoAn("* MENU ĐỒ ĂN HIỆN TẠI *", danhSach, thuTu);
+	}
 
 	cout << "Nhập *MÃ* đồ ăn muốn xóa: ";
 	string maXoa;
@@ -211,7 +234,9 @@ void suaDoAn(string fileDoAn) {
 
 	DoAn danhSach[TOI_DA];
 	int thuTu = 0;
-	if (!docFileTuNguonDoAn(fileDoAn, danhSach, thuTu)) return;
+	if (docFileTuNguonDoAn(fileDoAn, danhSach, thuTu)) {
+		inMenuDoAn("* MENU ĐỒ ĂN HIỆN TẠI *", danhSach, thuTu);
+	}
 
 	cout << "Nhập *MÃ* đồ ăn muốn sửa: ";
 	string maSua;
