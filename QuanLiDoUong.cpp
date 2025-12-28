@@ -118,9 +118,30 @@ void capNhatDoUong(DoUong& mon) {
 	if (boNhoDem != "") mon.loai = boNhoDem;
 }
 
+//IN MENU ĐỒ UỐNG
+void inMenuDoUong(string tieuDeMenu, DoUong danhSach[], int& thuTu) {
+	cout << tieuDeMenu << endl;
+	veDuong(73);
+	cout << format("| {:<10} | {:<30} | {:<10} | {:<10} |", "MÃ", "TÊN ĐỒ UỐNG", "GIÁ", "LOẠI") << endl;
+	veDuong(73);
+
+	for (int i = 0; i < thuTu; i++) {
+		cout << format("| {:<10} | {:<30} | {:<10} | {:<10} |", danhSach[i].ma, danhSach[i].ten, danhSach[i].giaGoc, danhSach[i].loai) << endl;
+	}
+
+	veDuong(73);
+	cout << endl;
+}
+
 //THÊM THÔNG TIN ĐỒ UỐNG
 void themDoUong(string fileDoUong) {
 	veTieuDe("THÊM ĐỒ UỐNG MỚI");
+
+	DoUong danhSach[TOI_DA];
+	int thuTu = 0;
+	if (docFileTuNguonDoUong(fileDoUong, danhSach, thuTu)) {
+		inMenuDoUong("* MENU ĐỒ UỐNG HIỆN TẠI *", danhSach, thuTu);
+	}
 
 	ofstream themDoUong(fileDoUong, ios::app);
 	if (!themDoUong.is_open()) {
@@ -153,7 +174,7 @@ void themDoUong(string fileDoUong) {
 
 	if (boNhoDem == "Y" || boNhoDem == "y") {
 		themDoUong << moi.ten << "|" << moi.giaGoc << "|" << moi.loai << "|" << moi.ma << endl;
-		cout << "\n--> [THÀNH CÔNG] Đã thêm đồ uống vào hệ thống! *_*" << endl;
+		cout << "\n--> [THÀNH CÔNG] Đã thêm đồ uống vào hệ thống! *_*\n" << endl;
 	}
 	if (boNhoDem == "N" || boNhoDem == "n") {
 		cout << "\n--> [THẤT BẠI] Đã hủy thao tác thêm đồ uống mới! *_*" << endl;
@@ -168,7 +189,9 @@ void xoaDoUong(string fileDoUong) {
 
 	DoUong danhSach[TOI_DA];
 	int thuTu = 0;
-	if (!docFileTuNguonDoUong(fileDoUong, danhSach, thuTu)) return;
+	if (docFileTuNguonDoUong(fileDoUong, danhSach, thuTu)) {
+		inMenuDoUong("* MENU ĐỒ UỐNG HIỆN TẠI *", danhSach, thuTu);
+	}
 
 	cout << "Nhập *MÃ* đồ uống muốn xóa: ";
 	string maXoa;
@@ -210,7 +233,9 @@ void suaDoUong(string fileDoUong) {
 
 	DoUong danhSach[TOI_DA];
 	int thuTu = 0;
-	if (!docFileTuNguonDoUong(fileDoUong, danhSach, thuTu)) return;
+	if (docFileTuNguonDoUong(fileDoUong, danhSach, thuTu)) {
+		inMenuDoUong("* MENU ĐỒ UỐNG HIỆN TẠI *", danhSach, thuTu);
+	}
 
 	cout << "Nhập *MÃ* đồ uống muốn sửa: ";
 	string maSua;
