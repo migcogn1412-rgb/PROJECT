@@ -116,3 +116,19 @@ void xuLyLuaChon(int luaChon, vector<Ban>& dsBan, const string& tenFile) {
             cout << "Lựa chọn không hợp lệ!\n";
     }
 }
+
+// ===== HÀM GỘP CHỨC NĂNG =====
+void chayChuongTrinh() {
+    string tenFile = "SoDoBan.txt";
+    vector<Ban> dsBan = docSoDoBan(tenFile);
+    int luaChon;
+
+    do {
+        hienThiBan(dsBan);
+        hienThiMenu();
+        cin >> luaChon;
+
+        xuLyLuaChon(luaChon, dsBan, tenFile);
+
+    } while (luaChon != 0);
+}
