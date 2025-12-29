@@ -11,35 +11,50 @@ using std::format, std::istringstream, std::getline, std::stoi;
 const int TOI_DA = 100;
 
 // =========================================================
-// KHAI BÁO STRUCT
+// 1. KHAI BÁO STRUCT
 // =========================================================
+
+// 1.1. Đồ uống
 struct DoUong {
 	string ten, loai, ma;
 	int giaGoc = 0;
 };
+//------------------------------------------------------------------------------------------------//
 
+// 1.2. Đồ ăn 
 struct DoAn {
 	string ten, loai, ma;
 	int giaGoc = 0;
 };
 
+//------------------------------------------------------------------------------------------------//
+
+// 1.3. Topping
 struct Topping {
 	string ten, ma;
 	int giaGoc = 0;
 };
 
+//------------------------------------------------------------------------------------------------//
+
+// 1.4. Cấu hình - ( size đồ uống )
 struct CauHinh {
 	string size;
 	int giaCongThem = 0;
 };
 
 // =========================================================
-// HÀM TIỆN ÍCH CHUNG
+// 2. HÀM TIỆN ÍCH CHUNG
 // =========================================================
+
+// 2.1. Vẽ đường thẳng
 void veDuong(int doDai) {
 	cout << string(doDai, '-') << endl;
 }
 
+//------------------------------------------------------------------------------------------------//
+
+// 2.2. Vẽ tiêu đề 
 void veTieuDe(string tieuDe) {
 	cout << endl;
 	veDuong(60);
@@ -48,6 +63,9 @@ void veTieuDe(string tieuDe) {
 	cout << endl;
 }
 
+//------------------------------------------------------------------------------------------------//
+
+// 2.3. Dừng màn hình
 void dungManHinh() {
 	cout << endl;
 	veDuong(60);
@@ -56,6 +74,9 @@ void dungManHinh() {
 	getline(cin, rac);
 }
 
+//------------------------------------------------------------------------------------------------//
+
+// 2.4. Xác nhận
 bool xacNhan() {
 	string xacNhan;
 	veDuong(60);
@@ -66,14 +87,14 @@ bool xacNhan() {
 }
 
 // =========================================================
-// QUẢN LÍ CƠ SỞ DỮ LIỆU
+// 3. QUẢN LÍ CƠ SỞ DỮ LIỆU
 // =========================================================
 
 // =========================================================
-// I. QUẢN LÝ ĐỒ UỐNG
+// 3.1. QUẢN LÝ ĐỒ UỐNG
 // =========================================================
 
-//ĐỌC THÔNG TIN ĐỒ UỐNG TỪ 1 DÒNG
+// 3.1.1. ĐỌC THÔNG TIN ĐỒ UỐNG TỪ 1 DÒNG
 DoUong docDoUong(string thongTin) {
 	istringstream phanTach(thongTin);
 	DoUong d;
@@ -85,7 +106,9 @@ DoUong docDoUong(string thongTin) {
 	return d;
 }
 
-//ĐỌC THÔNG TIN TỪ FILE ĐỒ UỐNG
+//------------------------------------------------------------------------------------------------//
+
+// 3.1.2. ĐỌC THÔNG TIN TỪ FILE ĐỒ UỐNG
 bool docFileTuNguonDoUong(string tenFile, DoUong danhSach[], int& thuTu) {
 	ifstream docFile(tenFile, ios::in);
 	if (!docFile.is_open()) {
@@ -102,7 +125,9 @@ bool docFileTuNguonDoUong(string tenFile, DoUong danhSach[], int& thuTu) {
 	return true;
 }
 
-//GHI THÔNG TIN VÀO FILE ĐỒ UỐNG
+//------------------------------------------------------------------------------------------------//
+
+// 3.1.3. GHI THÔNG TIN VÀO FILE ĐỒ UỐNG
 bool ghiFileVaoNguonDoUong(string tenFile, DoUong danhSach[], int& thuTu) {
 	ofstream ghiFile(tenFile, ios::out);
 	if (!ghiFile.is_open()) {
@@ -119,7 +144,9 @@ bool ghiFileVaoNguonDoUong(string tenFile, DoUong danhSach[], int& thuTu) {
 	return true;
 }
 
-//XÓA 1 DÒNG THÔNG TIN ĐỒ UỐNG
+//------------------------------------------------------------------------------------------------//
+
+// 3.1.4. XÓA 1 DÒNG THÔNG TIN ĐỒ UỐNG
 void xoaDongDoUong(DoUong danhSach[], int& thuTu, int i) {
 	for (int j = i; j < thuTu - 1; j++) {
 		danhSach[j] = danhSach[j + 1];
@@ -127,7 +154,7 @@ void xoaDongDoUong(DoUong danhSach[], int& thuTu, int i) {
 	thuTu--;
 }
 
-//CẬP NHẬT THÔNG TIN ĐỒ UỐNG
+// 3.1.5. CẬP NHẬT THÔNG TIN ĐỒ UỐNG
 void capNhatDoUong(DoUong& mon) {
 	string boNhoDem;
 
@@ -148,7 +175,9 @@ void capNhatDoUong(DoUong& mon) {
 	if (boNhoDem != "") mon.loai = boNhoDem;
 }
 
-//IN MENU ĐỒ UỐNG
+//------------------------------------------------------------------------------------------------//
+
+// 3.1.6. IN MENU ĐỒ UỐNG
 void inMenuDoUong(DoUong danhSach[], int& thuTu) {
 	veDuong(73);
 	cout << format("| {:<10} | {:<30} | {:<10} | {:<10} |", "MÃ", "TÊN ĐỒ UỐNG", "GIÁ", "LOẠI") << endl;
@@ -160,7 +189,9 @@ void inMenuDoUong(DoUong danhSach[], int& thuTu) {
 	cout << endl;
 }
 
-//NHẬP ĐỒ UỐNG MỚI
+//------------------------------------------------------------------------------------------------//
+
+// 3.1.7. NHẬP ĐỒ UỐNG MỚI
 void nhapDoUongMoi(DoUong& moi) {
 	cout << format("{:<25}: ", "Nhập mã đồ uống");
 	getline(cin, moi.ma);
@@ -176,7 +207,9 @@ void nhapDoUongMoi(DoUong& moi) {
 	getline(cin, moi.loai);
 }
 
-//THÊM THÔNG TIN ĐỒ UỐNG
+//------------------------------------------------------------------------------------------------//
+
+// 3.1.8. THÊM THÔNG TIN ĐỒ UỐNG
 void themDoUong(string fileDoUong) {
 	veTieuDe("THÊM ĐỒ UỐNG MỚI");
 
@@ -204,7 +237,9 @@ void themDoUong(string fileDoUong) {
 	themDoUong.close();
 }
 
-//XÓA ĐỒ UỐNG
+//------------------------------------------------------------------------------------------------//
+
+// 3.1.9. XÓA ĐỒ UỐNG
 void xoaDoUong(string fileDoUong) {
 	veTieuDe("XÓA ĐỒ UỐNG");
 
@@ -242,7 +277,9 @@ void xoaDoUong(string fileDoUong) {
 	ghiFileVaoNguonDoUong(fileDoUong, danhSach, thuTu);
 }
 
-//SỬA ĐỒ UỐNG
+//------------------------------------------------------------------------------------------------//
+
+// 3.1.10. SỬA ĐỒ UỐNG
 void suaDoUong(string fileDoUong) {
 	veTieuDe("CHỈNH SỬA THÔNG TIN");
 
@@ -281,7 +318,9 @@ void suaDoUong(string fileDoUong) {
 	ghiFileVaoNguonDoUong(fileDoUong, danhSach, thuTu);
 }
 
-//TÌM KIẾM ĐỒ UỐNG
+//------------------------------------------------------------------------------------------------//
+
+// 3.1.11. TÌM KIẾM ĐỒ UỐNG
 void timKiemDoUong(string fileDoUong) {
 	veTieuDe("TÌM KIẾM ĐỒ UỐNG");
 
@@ -310,7 +349,9 @@ void timKiemDoUong(string fileDoUong) {
 	}
 }
 
-//HÀM QUẢN LÍ CHỨC NĂNG LIÊN QUAN ĐẾN ĐỒ UỐNG
+//------------------------------------------------------------------------------------------------//
+
+// 3.1.12. HÀM QUẢN LÍ CHỨC NĂNG LIÊN QUAN ĐẾN ĐỒ UỐNG
 void quanLiDoUong() {
 	while (true) {
 		system("cls");
@@ -341,9 +382,10 @@ void quanLiDoUong() {
 }
 
 // =========================================================
-// II. QUẢN LÝ ĐỒ ĂN
+// 3.2. QUẢN LÝ ĐỒ ĂN
 // =========================================================
-//ĐỌC THÔNG TIN ĐỒ ĂN TỪ 1 DÒNG
+
+// 3.2.1 ĐỌC THÔNG TIN ĐỒ ĂN TỪ 1 DÒNG
 DoAn docDoAn(string thongTin) {
 	istringstream phanTach(thongTin);
 	DoAn d;
@@ -355,7 +397,9 @@ DoAn docDoAn(string thongTin) {
 	return d;
 }
 
-//ĐỌC THÔNG TIN TỪ FILE ĐỒ ĂN
+//------------------------------------------------------------------------------------------------//
+
+// 3.2.2. ĐỌC THÔNG TIN TỪ FILE ĐỒ ĂN
 bool docFileTuNguonDoAn(string tenFile, DoAn danhSach[], int& thuTu) {
 	ifstream docFile(tenFile, ios::in);
 	if (!docFile.is_open()) {
@@ -372,7 +416,9 @@ bool docFileTuNguonDoAn(string tenFile, DoAn danhSach[], int& thuTu) {
 	return true;
 }
 
-//GHI THÔNG TIN VÀO FILE ĐỒ ĂN
+//------------------------------------------------------------------------------------------------//
+
+// 3.2.3. GHI THÔNG TIN VÀO FILE ĐỒ ĂN
 bool ghiFileVaoNguonDoAn(string tenFile, DoAn danhSach[], int& thuTu) {
 	ofstream ghiFile(tenFile, ios::out);
 	if (!ghiFile.is_open()) {
@@ -389,7 +435,9 @@ bool ghiFileVaoNguonDoAn(string tenFile, DoAn danhSach[], int& thuTu) {
 	return true;
 }
 
-//XÓA 1 DÒNG ĐỒ ĂN
+//------------------------------------------------------------------------------------------------//
+
+// 3.2.4 XÓA 1 DÒNG ĐỒ ĂN
 void xoaDongDoAn(DoAn danhSach[], int& thuTu, int i) {
 	for (int j = i; j < thuTu - 1; j++) {
 		danhSach[j] = danhSach[j + 1];
@@ -397,7 +445,9 @@ void xoaDongDoAn(DoAn danhSach[], int& thuTu, int i) {
 	thuTu--;
 }
 
-//CẬP NHẬT THÔNG TIN ĐỒ ĂN
+//------------------------------------------------------------------------------------------------//
+
+// 3.2.5. CẬP NHẬT THÔNG TIN ĐỒ ĂN
 void capNhatDoAn(DoAn& mon) {
 	string boNhoDem;
 
@@ -418,7 +468,9 @@ void capNhatDoAn(DoAn& mon) {
 	if (boNhoDem != "") mon.loai = boNhoDem;
 }
 
-//IN MENU ĐỒ ĂN
+//------------------------------------------------------------------------------------------------//
+
+// 3.2.5. IN MENU ĐỒ ĂN
 void inMenuDoAn(DoAn danhSach[], int& thuTu) {
 	veDuong(73);
 	cout << format("| {:<10} | {:<30} | {:<10} | {:<10} |", "MÃ", "TÊN ĐỒ ĂN", "GIÁ", "LOẠI") << endl;
@@ -430,7 +482,9 @@ void inMenuDoAn(DoAn danhSach[], int& thuTu) {
 	cout << endl;
 }
 
-//NHẬP ĐỒ ĂN MỚI
+//------------------------------------------------------------------------------------------------//
+
+// 3.2.6. NHẬP ĐỒ ĂN MỚI
 void nhapDoAnMoi(DoAn& moi) {
 	cout << format("{:<25}: ", "Nhập mã đồ ăn");
 	getline(cin, moi.ma);
@@ -446,7 +500,9 @@ void nhapDoAnMoi(DoAn& moi) {
 	getline(cin, moi.loai);
 }
 
-//THÊM ĐỒ ĂN
+//------------------------------------------------------------------------------------------------//
+
+// 3.2.7. THÊM ĐỒ ĂN
 void themDoAn(string fileDoAn) {
 	veTieuDe("THÊM ĐỒ ĂN MỚI");
 
@@ -474,7 +530,9 @@ void themDoAn(string fileDoAn) {
 	themDoAn.close();
 }
 
-//XÓA ĐỒ ĂN
+//------------------------------------------------------------------------------------------------//
+
+// 3.2.8. XÓA ĐỒ ĂN
 void xoaDoAn(string fileDoAn) {
 	veTieuDe("XÓA ĐỒ ĂN");
 
@@ -512,7 +570,9 @@ void xoaDoAn(string fileDoAn) {
 	ghiFileVaoNguonDoAn(fileDoAn, danhSach, thuTu);
 }
 
-//SỬA ĐỒ ĂN
+//------------------------------------------------------------------------------------------------//
+
+// 3.2.9. SỬA ĐỒ ĂN
 void suaDoAn(string fileDoAn) {
 	veTieuDe("CHỈNH SỬA THÔNG TIN");
 
@@ -551,7 +611,9 @@ void suaDoAn(string fileDoAn) {
 	ghiFileVaoNguonDoAn(fileDoAn, danhSach, thuTu);
 }
 
-//TÌM KIẾM ĐỒ ĂN
+//------------------------------------------------------------------------------------------------//
+
+// 3.2.10. TÌM KIẾM ĐỒ ĂN
 void timKiemDoAn(string fileDoAn) {
 	veTieuDe("TÌM KIẾM ĐỒ ĂN");
 
@@ -580,7 +642,9 @@ void timKiemDoAn(string fileDoAn) {
 	}
 }
 
-//HÀM QUẢN LÍ CHỨC NĂNG LIÊN QUAN ĐẾN ĐỒ ĂN
+//------------------------------------------------------------------------------------------------//
+
+// 3.2.11. HÀM QUẢN LÍ CHỨC NĂNG LIÊN QUAN ĐẾN ĐỒ ĂN
 void quanLiDoAn() {
 	while (true) {
 		system("cls");
@@ -611,9 +675,9 @@ void quanLiDoAn() {
 }
 
 // =========================================================
-// III. QUẢN LÝ TOPPING
+// 4. QUẢN LÝ TOPPING
 // =========================================================
-//ĐỌC THÔNG TIN TOPPING TỪ 1 DÒNG
+// 4.1 ĐỌC THÔNG TIN TOPPING TỪ 1 DÒNG
 Topping docTopping(string thongTin) {
 	istringstream phanTach(thongTin);
 	Topping t;
@@ -624,7 +688,9 @@ Topping docTopping(string thongTin) {
 	return t;
 }
 
-//ĐỌC THÔNG TIN TỪ FILE TOPPING
+//------------------------------------------------------------------------------------------------//
+
+// 4.2. ĐỌC THÔNG TIN TỪ FILE TOPPING
 bool docFileTuNguonTopping(string tenFile, Topping danhSach[], int& thuTu) {
 	ifstream docFile(tenFile, ios::in);
 	if (!docFile.is_open()) {
@@ -641,7 +707,9 @@ bool docFileTuNguonTopping(string tenFile, Topping danhSach[], int& thuTu) {
 	return true;
 }
 
-//GHI THÔNG TIN VÀO FILE TOPPING
+//------------------------------------------------------------------------------------------------//
+
+// 4.3. GHI THÔNG TIN VÀO FILE TOPPING
 bool ghiFileVaoNguonTopping(string tenFile, Topping danhSach[], int& thuTu) {
 	ofstream ghiFile(tenFile, ios::out);
 	if (!ghiFile.is_open()) {
@@ -657,7 +725,9 @@ bool ghiFileVaoNguonTopping(string tenFile, Topping danhSach[], int& thuTu) {
 	return true;
 }
 
-//XÓA 1 DÒNG TOPPING
+//------------------------------------------------------------------------------------------------//
+
+// 4.4. XÓA 1 DÒNG TOPPING
 void xoaDongTopping(Topping danhSach[], int& thuTu, int i) {
 	for (int j = i; j < thuTu - 1; j++) {
 		danhSach[j] = danhSach[j + 1];
@@ -665,7 +735,9 @@ void xoaDongTopping(Topping danhSach[], int& thuTu, int i) {
 	thuTu--;
 }
 
-//CẬP NHẬT THÔNG TIN TOPPING
+//------------------------------------------------------------------------------------------------//
+
+// 4.5. CẬP NHẬT THÔNG TIN TOPPING
 void capNhatTopping(Topping& mon) {
 	string boNhoDem;
 
@@ -682,7 +754,9 @@ void capNhatTopping(Topping& mon) {
 	if (boNhoDem != "") mon.giaGoc = stoi(boNhoDem);
 }
 
-//IN MENU TOPPING
+//------------------------------------------------------------------------------------------------//
+
+// 4.6. IN MENU TOPPING
 void inMenuTopping(Topping danhSach[], int& thuTu) {
 	veDuong(60);
 	cout << format("| {:<10} | {:<30} | {:<10} |", "MÃ", "TÊN ĐỒ UỐNG", "GIÁ") << endl;
@@ -694,7 +768,9 @@ void inMenuTopping(Topping danhSach[], int& thuTu) {
 	cout << endl;
 }
 
-//NHẬP TOPPING MỚI
+//------------------------------------------------------------------------------------------------//
+
+// 4.7. NHẬP TOPPING MỚI
 void nhapToppingMoi(Topping& moi) {
 	cout << format("{:<25}: ", "Nhập mã topping");
 	getline(cin, moi.ma);
@@ -707,7 +783,9 @@ void nhapToppingMoi(Topping& moi) {
 	getline(cin, boNhoDem); moi.giaGoc = stoi(boNhoDem);
 }
 
-//THÊM TOPPING
+//------------------------------------------------------------------------------------------------//
+
+// 4.8. THÊM TOPPING
 void themTopping(string fileTopping) {
 	veTieuDe("THÊM TOPPING MỚI");
 
@@ -735,7 +813,9 @@ void themTopping(string fileTopping) {
 	themTopping.close();
 }
 
-//XÓA TOPPING
+//------------------------------------------------------------------------------------------------//
+
+// 4.9. XÓA TOPPING
 void xoaTopping(string fileTopping) {
 	veTieuDe("XÓA TOPPING");
 
@@ -773,7 +853,9 @@ void xoaTopping(string fileTopping) {
 	ghiFileVaoNguonTopping(fileTopping, danhSach, thuTu);
 }
 
-//SỬA TOPPING
+//------------------------------------------------------------------------------------------------//
+
+// 4.10. SỬA TOPPING
 void suaTopping(string fileTopping) {
 	veTieuDe("CHỈNH SỬA THÔNG TIN");
 
@@ -813,7 +895,9 @@ void suaTopping(string fileTopping) {
 	ghiFileVaoNguonTopping(fileTopping, danhSach, thuTu);
 }
 
-//TÌM KIẾM TOPPING
+//------------------------------------------------------------------------------------------------//
+
+// 4.11. TÌM KIẾM TOPPING
 void timKiemTopping(string fileTopping) {
 	veTieuDe("TÌM KIẾM TOPPING");
 
@@ -842,7 +926,9 @@ void timKiemTopping(string fileTopping) {
 	}
 }
 
-//HÀM QUẢN LÍ CHỨC NĂNG LIÊN QUAN ĐẾN TOPPING
+//------------------------------------------------------------------------------------------------//
+
+// 4.12. HÀM QUẢN LÍ CHỨC NĂNG LIÊN QUAN ĐẾN TOPPING
 void quanLiTopping() {
 	while (true) {
 		system("cls");
@@ -873,9 +959,9 @@ void quanLiTopping() {
 }
 
 // =========================================================
-// IV. CẤU HÌNH ORDER
+// 5. CẤU HÌNH ORDER
 // =========================================================
-//ĐỌC THÔNG TIN CẤU HÌNH TỪ 1 DÒNG
+// 5.1 ĐỌC THÔNG TIN CẤU HÌNH TỪ 1 DÒNG
 CauHinh docCauHinh(string thongTin) {
 	istringstream phanTach(thongTin);
 	CauHinh c;
