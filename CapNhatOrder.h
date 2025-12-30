@@ -67,7 +67,7 @@ void saveFileOrder(string tenFile, Order ds[], int soLuong) {
 void capNhatOrder() {
     Order danhSach[MAX_ORDER];
     int soLuong = 0;
-    string fileLichSu = "LichSuOrder.txt";
+    string fileLichSu = "OrderChuaThanhToan";
 
     if (!loadFileOrder(fileLichSu, danhSach, soLuong)) {
         cout << "LỖI: Không thể mở file " << fileLichSu << " hoặc file trống!" << endl;
