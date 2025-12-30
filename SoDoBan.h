@@ -4,6 +4,7 @@
 #include <iostream>
 #include <fstream>
 #include <iomanip>
+
 using namespace std;
 
 #define SIZE 5
@@ -74,3 +75,5 @@ void soDoBan() {
     hienThiSoDo();
     chonBan();
 }
+
+#endif 
