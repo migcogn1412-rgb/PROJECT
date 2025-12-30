@@ -3,132 +3,74 @@
 
 #include <iostream>
 #include <fstream>
-#include <vector>
-#include <string>
 #include <iomanip>
-
 using namespace std;
 
-// ===== STRUCT =====
-struct Ban {
-    int soBan;
-    int trangThai; // 0: trống, 1: có khách
+#define SIZE 5
+
+struct QuanCafe {
+    int ban[SIZE][SIZE];
 };
 
-// ===== ĐỌC / GHI FILE =====
-vector<Ban> docSoDoBan(const string& tenFile) {
-    vector<Ban> dsBan;
-    ifstream file(tenFile);
-    string dong;
+static QuanCafe qc;
 
-    while (getline(file, dong)) {
-        size_t pos = dong.find('|');
-        if (pos != string::npos) {
-            Ban b;
-            b.soBan = stoi(dong.substr(0, pos));
-            b.trangThai = stoi(dong.substr(pos + 1));
-            dsBan.push_back(b);
+// Doc file SoDoBan.txt
+void docSoDoBan() {
+    ifstream file("SoDoBan.txt");
+    int soBan, trangThai;
+    char dau;
+
+    while (file >> soBan >> dau >> trangThai) {
+        int index = soBan - 1;
+        qc.ban[index / SIZE][index % SIZE] = trangThai;
+    }
+    file.close();
+}
+
+// Hien thi so do ban
+void hienThiSoDo() {
+    cout << "\nSƠ ĐỒ BÀN (0: Trống | 1: Có khách)\n";
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < SIZE; j++) {
+            int soBan = i * SIZE + j + 1;
+            cout << setw(2) << soBan << "[" << qc.ban[i][j] << "] ";
         }
+        cout << endl;
     }
-    file.close();
-    return dsBan;
+    cout << endl;
 }
 
-void ghiSoDoBan(const string& tenFile, const vector<Ban>& dsBan) {
-    ofstream file(tenFile);
-    for (const auto& b : dsBan) {
-        file << b.soBan << "|" << b.trangThai << endl;
-    }
-    file.close();
-}
+// Khach chon ban
+void chonBan() {
+    int soBan;
+    while (true) {
+        cout << "Nhập số bàn (1-25), 0 để thoát: ";
+        cin >> soBan;
 
-// ===== HIỂN THỊ =====
-void hienThiBan(const vector<Ban>& dsBan) {
-    cout << "\n=== TRẠNG THÁI BÀN ===\n";
-    for (const auto& b : dsBan) {
-        cout << "Bàn " << setw(2) << b.soBan << ": "
-             << (b.trangThai ? "Có khách" : "Trống") << endl;
-    }
-}
-
-void hienThiMenu() {
-    cout << "\n===== OPTIONS =====\n";
-    cout << "1. Xử lý hóa đơn\n";
-    cout << "0. Thoát\n";
-    cout << "Lựa chọn của bạn: ";
-}
-
-// ===== XỬ LÝ HÓA ĐƠN =====
-void xuLyHoaDon(vector<Ban>& dsBan, int soBan) {
-    for (auto& b : dsBan) {
-        if (b.soBan == soBan && b.trangThai == 1) {
-            double tongTien;
-            int phuongThuc;
-            char xacNhan;
-
-            cout << "\n--- HÓA ĐƠN BÀN " << soBan << " ---\n";
-            cout << "TỔNG TIỀN: ";
-            cin >> tongTien;
-
-            cout << "1. Tiền mặt\n";
-            cout << "2. Chuyển khoản\n";
-            cout << "Lựa chọn: ";
-            cin >> phuongThuc;
-
-            cout << "Xác nhận thanh toán? (Y/N): ";
-            cin >> xacNhan;
-
-            if (xacNhan == 'y' || xacNhan == 'Y') {
-                cout << "\n===== HÓA ĐƠN =====\n";
-                cout << "Bàn: " << soBan << endl;
-                cout << "Tổng tiền: " << fixed << setprecision(0)
-                     << tongTien << " VND\n";
-                cout << "Thanh toán: "
-                     << (phuongThuc == 1 ? "Tiền mặt" : "Chuyển khoản") << endl;
-                cout << "Trạng thái: Đã thanh toán\n";
-                cout << "===================\n";
-
-                b.trangThai = 0;
-                cout << "Đã cập nhật trạng thái bàn.\n";
-            } else {
-                cout << "Hủy thanh toán.\n";
-            }
+        if (soBan == 0) {
+            cout << "Thoát chương trình.\n";
             return;
         }
-    }
-    cout << "Bàn không tồn tại hoặc đang trống!\n";
-}
 
-// ===== XỬ LÝ LỰA CHỌN =====
-void xuLyLuaChon(int luaChon, vector<Ban>& dsBan, const string& tenFile) {
-    int soBan;
-    switch (luaChon) {
-        case 1:
-            cout << "Nhập số bàn cần thanh toán: ";
-            cin >> soBan;
-            xuLyHoaDon(dsBan, soBan);
-            ghiSoDoBan(tenFile, dsBan);
-            break;
-        case 0:
-            cout << "Thoát chương trình.\n";
-            break;
-        default:
-            cout << "Lựa chọn không hợp lệ!\n";
+        if (soBan < 1 || soBan > 25) {
+            cout << "Bàn không tồn tại!\n";
+            continue;
+        }
+
+        int index = soBan - 1;
+        if (qc.ban[index / SIZE][index % SIZE] == 0) {
+            cout << "Bàn " << soBan << " đang trống\n";
+            return;
+        } else {
+            cout << "Bàn " << soBan << " đã có khách\n";
+            cout << "Hãy chọn bàn khác hoặc nhập 0 để thoát.\n";
+        }
     }
 }
 
-// ===== HÀM GỘP CHỨC NĂNG =====
-void chayChuongTrinh() {
-    string tenFile = "SoDoBan.txt";
-    vector<Ban> dsBan = docSoDoBan(tenFile);
-    int luaChon;
-
-    do {
-        hienThiBan(dsBan);
-        hienThiMenu();
-        cin >> luaChon;
-
-        xuLyLuaChon(luaChon, dsBan, tenFile);
-
-    } while (luaChon != 0);
+// Ham gop toan bo chuong trinh
+void soDoBan() {
+    docSoDoBan();
+    hienThiSoDo();
+    chonBan();
 }
