@@ -5,63 +5,44 @@
 #include <vector>
 using namespace std;
 
-// === CÁC STRUCT GỐC (GIỐNG FILE MAIN) ===
+// --- ĐỔI TÊN STRUCT ĐỂ KHÔNG ĐỤNG HÀNG VỚI MAIN.CPP ---
 
-struct DoUong {
+struct MonUong { // Trong main là DoUong
     string ten, loai, ma;
-    int giaGoc = 0;
+    int giaGoc; 
 };
 
-struct DoAn {
+struct MonAn { // Trong main là DoAn
     string ten, loai, ma;
-    int giaGoc = 0;
+    int giaGoc;
 };
 
-struct Topping {
+struct MonTopping { // Trong main là Topping
     string ten, ma;
-    int giaGoc = 0;
+    int giaGoc;
 };
 
-struct CauHinh {
+struct ConfigSize { // Trong main là CauHinh
     string size;
-    int giaCongThem = 0;
+    int giaCongThem;
 };
 
-// === CÁC STRUCT MỚI (DÙNG CHO ORDER & HÓA ĐƠN) ===
+// --- CÁC STRUCT RIÊNG CỦA CHỨC NĂNG ORDER ---
 
-// Chi tiết 1 món khách đã chọn
+// Chi tiết 1 món khách gọi
 struct ChiTietOrder {
     string maMon;
     string tenMon;
     string loai;      // "DO_UONG" hoặc "DO_AN"
     
-    // Option (chỉ dùng cho đồ uống)
-    string size;      // S, M, L
-    long giaSize;     // Giá cộng thêm của size
-    string dsTopping; // Tên các topping nối chuỗi
-    long giaTopping;  // Tổng tiền topping
+    // Option (chỉ đồ uống)
+    string size;      
+    int giaSize;      
+    string dsTopping; // Chuỗi tên topping
+    int giaTopping;   
     
-    // Chung
     int soLuong;
-    long thanhTien;   // (GiaGoc + GiaSize + GiaTopping) * SoLuong
-};
-
-// Hóa đơn tổng
-struct HoaDon {
-    string maHD;
-    string ngay;
-    int soBan;
-    vector<ChiTietOrder> dsMon; // Danh sách món đã gọi
-    string ghiChu;
-    long tongTien;
-    long tienKhachDua;
-    long tienThoi;
-};
-
-// Quản lý bàn
-struct Ban {
-    int soBan;
-    int trangThai; // 0: Trống, 1: Có khách
+    long thanhTien;   // Tổng tiền món này
 };
 
 #endif
