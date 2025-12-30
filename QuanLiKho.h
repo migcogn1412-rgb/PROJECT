@@ -43,7 +43,7 @@ void themNhaCungCap() {
 }
 
 // 2. TỰ ĐỘNG CẬP NHẬT KHO
-// Thay vì dùng vector<HangHoa>, ta truyền mảng và số lượng thực tế (n)
+
 void capNhatKhoTuDong(HangHoa dsMoi[], int n) {
     NguyenLieu kho[MAX_KHO];
     int soLuongTrongKho = 0;
@@ -68,8 +68,8 @@ void capNhatKhoTuDong(HangHoa dsMoi[], int n) {
         bool timThay = false;
         for (int j = 0; j < soLuongTrongKho; j++) {
             if (kho[j].ten == dsMoi[i].ten) {
-                kho[j].soLuong += dsMoi[i].soLuong; // Cộng dồn
-                kho[j].gia = dsMoi[i].gia;         // Cập nhật giá nhập mới nhất
+                kho[j].soLuong += dsMoi[i].soLuong; 
+                kho[j].gia = dsMoi[i].gia;         
                 timThay = true;
                 break;
             }
