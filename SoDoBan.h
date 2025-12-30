@@ -69,11 +69,6 @@ void chonBan() {
     }
 }
 
-// Ham gop toan bo chuong trinh
-void soDoBan() {
-    docSoDoBan();
-    hienThiSoDo();
-    chonBan();
-}
+// Ham gop toan bo chuong t
 
 #endif 
