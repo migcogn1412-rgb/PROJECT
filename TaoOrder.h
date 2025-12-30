@@ -4,19 +4,16 @@
 #include "Menu.h"
 #include <string>
 
-// --- HÀM CẬP NHẬT TRẠNG THÁI BÀN ---
-// Tự đọc/ghi file SoDoBan.txt độc lập để không phụ thuộc file Main
+// --- HÀM 1: CẬP NHẬT TRẠNG THÁI BÀN ---
 void setTrangThaiBan(int ban, int trangThai) {
     vector<string> lines;
     ifstream fIn("SoDoBan.txt");
     string line;
-    // Đọc file cũ
     if(fIn.is_open()) {
         while(getline(fIn, line)) lines.push_back(line);
         fIn.close();
     }
     
-    // Ghi file mới
     ofstream fOut("SoDoBan.txt");
     bool timThay = false;
     for(string s : lines) {
@@ -31,13 +28,32 @@ void setTrangThaiBan(int ban, int trangThai) {
             fOut << s << endl;
         }
     }
-    // Nếu chưa có file sơ đồ bàn thì tạo mới dòng này (dự phòng)
     if(!timThay) fOut << ban << "|0|" << trangThai << endl;
-    
     fOut.close();
 }
 
-// --- HIỂN THỊ SƠ ĐỒ BÀN ĐỂ CHỌN ---
+// --- [MỚI] HÀM KIỂM TRA BÀN CÓ TRỐNG KHÔNG ---
+// Trả về true nếu bàn trống (0), false nếu có khách (1)
+bool kiemTraBanTrong(int banCanKiemTra) {
+    ifstream f("SoDoBan.txt");
+    string line;
+    while(getline(f, line)) {
+        if(line.length() < 3) continue;
+        stringstream ss(line);
+        string sBan, sDau, sTrangThai;
+        getline(ss, sBan, '|');
+        getline(ss, sDau, '|'); 
+        getline(ss, sTrangThai);
+        
+        if(stoi(sBan) == banCanKiemTra) {
+            // Nếu trạng thái là 0 thì Trống (true), ngược lại là Có khách (false)
+            return (stoi(sTrangThai) == 0); 
+        }
+    }
+    return true; // Nếu bàn chưa có trong danh sách thì mặc định là trống
+}
+
+// --- HIỂN THỊ SƠ ĐỒ BÀN ---
 void xemSoDoBan() {
     cout << "\n--- TRANG THAI BAN ---\n";
     ifstream f("SoDoBan.txt");
@@ -64,14 +80,11 @@ void xemSoDoBan() {
 // --- LƯU PHIẾU ORDER ---
 void luuPhieuOrder(int soBan, const vector<ChiTietOrder>& ds, string ghiChu) {
     string tenFile = "Order_Ban_" + to_string(soBan) + ".txt";
-    ofstream f(tenFile); // Ghi đè (tạo phiếu mới)
+    ofstream f(tenFile);
     
-    // Dòng 1: Ghi chú
     f << "GHI_CHU|" << ghiChu << endl;
     
-    // Các dòng sau: Món ăn
     for(auto m : ds) {
-        // Format: Loai|Ma|Ten|Size|GiaSize|Topping|GiaTopping|SoLuong|ThanhTien
         f << m.loai << "|" << m.maMon << "|" << m.tenMon << "|"
           << m.size << "|" << m.giaSize << "|"
           << m.dsTopping << "|" << m.giaTopping << "|"
@@ -82,7 +95,6 @@ void luuPhieuOrder(int soBan, const vector<ChiTietOrder>& ds, string ghiChu) {
 }
 
 // --- LOGIC CHÍNH: TẠO ORDER MỚI ---
-// Tên hàm này bạn hãy gọi trong main.cpp
 void taoOrderMoi() {
     vector<MonUong> listUong = loadMenuDoUong();
     vector<MonAn> listAn = loadMenuDoAn();
@@ -94,6 +106,15 @@ void taoOrderMoi() {
     cout << ">> Chon so ban khach ngoi (0 thoat): ";
     cin >> soBan;
     if (soBan == 0) return;
+
+    // --- [MỚI] THÊM ĐOẠN KIỂM TRA NÀY ---
+    if (kiemTraBanTrong(soBan) == false) {
+        cout << "\n(!) LOI: Ban so " << soBan << " dang co khach! Vui long chon ban khac.\n";
+        cout << "Bam Enter de quay lai...";
+        cin.ignore(); cin.get();
+        return; // Thoát khỏi hàm, không cho order tiếp
+    }
+    // ------------------------------------
 
     vector<ChiTietOrder> gioHang;
     string maChon;
