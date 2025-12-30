@@ -69,6 +69,4 @@ void chonBan() {
     }
 }
 
-// Ham gop toan bo chuong t
-
 #endif 
