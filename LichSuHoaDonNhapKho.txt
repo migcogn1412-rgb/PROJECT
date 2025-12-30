@@ -1,0 +1,5 @@
+MA: HD001 | NGAY: 30/12/2025 | TONG: 500000 VND
+   + Cafe Arabica (SL: 2)
+   + Sua dac (SL: 5)
+MA: HD002 | NGAY: 31/12/2025 | TONG: 120000 VND
+   + Ly nhua (SL: 100)
